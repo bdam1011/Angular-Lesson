@@ -1,0 +1,17 @@
+<!-- 只要能被解析成 string 者，都可用 interpolation，但不能寫判斷式，也不能與 property binding 混用-->
+<p> {{'Testing'}} Server with ID {{serverId}} is {{ getServerStatus() }}</p> 
+<!-- 方框[] ，dynamic property binding  -->
+<button class="btn btn-primary" [disabled]="!allowNewServer">allowNewServer</button>
+<p [innerText]="allowNewServer"></p>
+<!-- event binding -->
+<p>{{ serverCreationStatus }}</p>
+<button class="btn btn-primary" (click)="onCreateServer()">Add Server</button>
+<hr>
+<!-- $event: reserve variable for event binding ，代表 event 本身包含其 listen 的值 -->
+<label>Server Name: {{serverName}}</label>
+<p>event binding:</p><input type="text" class="form-control" (input)="onUpdateServerName($event)">
+<!-- 若要使用 ngModel two-way binding ，
+一定要在 app.module.ts 內的 AppModule imports[] array 內引入 FormsModule -->
+<!-- two-way binding 會被 input event trigger，然後更新所監聽的 property 值 ；
+也會因為所監聽的 property 值在其他處被更新而更新 -->
+<p>two-way binding: </p><input type="text" class="form-control" [(ngModel)]="serverName">

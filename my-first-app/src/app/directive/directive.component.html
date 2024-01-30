@@ -1,0 +1,23 @@
+<h3>Directive</h3>
+<h4>Structure Directive</h4>
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<!-- *ngIf 後面接 true or false，若為 false 則不會顯示在 DOM -->
+<p *ngIf="serverName !== ''; else noServer"> Server was created, server name is {{serverName}}</p>
+<!--  <ng-template> 會建立一個不會顯示在畫面上的內容區塊，可以使用樣板參考變數，給這個 <ng-template> 一個名稱；
+    再利用該名稱進行呼叫-->
+<ng-template #noServer>
+    <p>No server was created</p>
+</ng-template>
+<!-- 新寫法 -->
+@if (serverName !== '') {
+    <p> Server was created, server name is {{serverName}}</p>
+} @else {
+    <p>No server was created</p>
+}
+<h4>Attribute Directive</h4>
+<button (click)="onCreateServe()">Add Server</button>
+<!-- ngFor 還可以用 index  -->
+<p *ngFor="let server of servers ; let i =index"
+    [ngStyle]="{'background-color': getColor(i)}"
+    [ngClass]="{online: serverStatus === 'online'}"
+    > Server Status is {{server}}</p>
